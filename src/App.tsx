@@ -7,10 +7,8 @@ import { QuizCreatedData } from './interfaces/quizCreatedData'
 
 function App() {
   const [quizCreatedData, setQuizCreatedData] = useState<QuizCreatedData>({ categoryId: 0, difficulty: "" })
-  let isComplete = true;
-  let questions = true;
-
-  console.log(quizCreatedData);
+  let isComplete = false;
+  let questions = false;
 
   return (
     <>
