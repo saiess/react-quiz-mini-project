@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Question } from "../interfaces/question";
 import { QuizCreatedData } from "../interfaces/quizCreatedData";
 import Button from "./Button";
+import CreateQuiz from "./CreateQuiz";
 import QuizQustions from "./QuizQustions";
-import CreateQuiz from "./createQuiz";
 import { useNavigate } from "react-router-dom";
 import { incorrectAnswerData } from "../interfaces/incorrectAnswerData";
 
