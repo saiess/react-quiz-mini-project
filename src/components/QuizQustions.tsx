@@ -1,17 +1,86 @@
+import { useState } from "react";
+import { Question } from "../interfaces/question";
 import Button from "./Button";
 
+interface QuestionProps {
+  quizQuestionData: Question[];
+}
 
-const QuizQustions = () => {
-    return (
-        <section className='flex flex-col border border-cyan-700 rounded-lg p-6 gap-4'>
-        <p>Display a 5-question quiz based on the selected category/difficulty ?</p>
-        <div className='w-full flex justify-center gap-3'>
-            <Button style={'border-orange-600'}  text={'answer'} onClick={function (): void {
-            throw new Error('Function not implemented.')
-          } }/>
-        </div>
-    </section>
+const QuizQustions = ({ quizQuestionData }: QuestionProps) => {
+  const [saveCorrectAnswer, setSaveCorrectAnswer] = useState<
+    {
+      rowId: null | number;
+      correct: null | number;
+      incorrect?: number | null;
+    }[]
+  >([]);
+
+  const handleCorrectAnswer = (
+    id: number,
+    choosenAnswer: string,
+    btnId: number
+  ) => {
+    const isCorrect = quizQuestionData[id].correct_answer === choosenAnswer;
+
+    const rowSelectedIndex = saveCorrectAnswer.findIndex(
+      (el) => el.rowId === id
     );
+
+    let stateOfSaveCorrectAnswer = [...saveCorrectAnswer];
+
+    // is this row selected before
+    if (rowSelectedIndex !== -1) {
+      isCorrect
+        ? ((stateOfSaveCorrectAnswer[rowSelectedIndex].correct = btnId),
+          (stateOfSaveCorrectAnswer[rowSelectedIndex].incorrect = null))
+        : ((stateOfSaveCorrectAnswer[rowSelectedIndex].correct = null),
+          (stateOfSaveCorrectAnswer[rowSelectedIndex].incorrect = btnId));
+    } else {
+      isCorrect
+        ? (stateOfSaveCorrectAnswer = [
+            ...saveCorrectAnswer,
+            {
+              rowId: id,
+              correct: btnId,
+              incorrect: null,
+            },
+          ])
+        : (stateOfSaveCorrectAnswer = [
+            ...saveCorrectAnswer,
+            {
+              rowId: id,
+              correct: null,
+              incorrect: btnId,
+            },
+          ]);
+    }
+    setSaveCorrectAnswer(stateOfSaveCorrectAnswer);
+  };
+
+  return (
+    <section className="flex flex-col border border-cyan-700 rounded-lg p-6 gap-4">
+      {quizQuestionData?.map((item: Question, i: number) => (
+        <div key={i}>
+          <p className="text-start">{item.question}</p>
+          <div className="w-full flex flex-wrap gap-3">
+            {item.combinedAnswers?.map((answer: string, j: number) => (
+              <Button
+                key={j}
+                style={`${
+                  saveCorrectAnswer.find((el) => el?.rowId === i)?.correct === j
+                    ? "bg-green-700"
+                    : saveCorrectAnswer.find((el) => el?.rowId === i)
+                        ?.incorrect === j && "bg-red-500"
+                }`}
+                text={answer}
+                onClick={() => handleCorrectAnswer(i, answer, j)}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  );
 };
 
 export default QuizQustions;
