@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Question } from "../interfaces/question";
 import Button from "./Button";
+import { incorrectAnswerData } from "../interfaces/incorrectAnswerData";
+import { QuestionProps } from "../interfaces/selectedAnswers";
 
-interface QuestionProps {
-  quizQuestionData: Question[];
+interface SelectedAnswers {
+  rowId: null | number;
+  correct: null | number;
+  incorrect?: number | null;
 }
 
-const QuizQustions = ({ quizQuestionData }: QuestionProps) => {
+const QuizQustions = ({ quizQuestionData, isTestComplete, incorrectAnswers }: QuestionProps) => {
   const [saveCorrectAnswer, setSaveCorrectAnswer] = useState<
-    {
-      rowId: null | number;
-      correct: null | number;
-      incorrect?: number | null;
-    }[]
+  SelectedAnswers[]
   >([]);
 
   const handleCorrectAnswer = (
@@ -55,6 +55,12 @@ const QuizQustions = ({ quizQuestionData }: QuestionProps) => {
           ]);
     }
     setSaveCorrectAnswer(stateOfSaveCorrectAnswer);
+    stateOfSaveCorrectAnswer.length === 5 && isTestComplete(true);
+    let arrOfIncorrect: incorrectAnswerData[] = [];
+    stateOfSaveCorrectAnswer.filter((el: SelectedAnswers) => {
+      el.incorrect != null && arrOfIncorrect.push({incorrect: el.incorrect, rowId: el.rowId})
+    })
+    incorrectAnswers(arrOfIncorrect) 
   };
 
   return (
