@@ -24,7 +24,7 @@ const CreateQuiz = ({
       const res = await fetch(urlCategory);
       if (!res.ok) {
         throw new Error(
-          `Failed to fetch data: ${res.status} ${res.statusText}`
+          `Failed to fetch data ${res.status} ${res.statusText}`
         );
       }
       const data = await res.json();
@@ -81,7 +81,7 @@ const CreateQuiz = ({
       </section>
       {error && (
         <span className="w-full px-6 py-2 rounded bg-zinc-950 text-red-500">
-          An error occurred while creating the quiz: {error} please try again
+          An error occurred while creating the quiz: {error} please try again.
         </span>
       )}
     </>

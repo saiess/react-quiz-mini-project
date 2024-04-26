@@ -17,7 +17,8 @@ function MainPage() {
   const [testComplete, setTestComplete] = useState<boolean>(false);
   let questionURL = `https://opentdb.com/api.php?amount=5&category=${createQuizData.categoryId}&difficulty=${createQuizData.difficulty}&type=multiple`;
   const seeResult = useNavigate();
-  const [idOfIncorrectAnswers, setIdOfIncorrectAnswers] = useState<incorrectAnswerData[]>();
+  const [idOfIncorrectAnswers, setIdOfIncorrectAnswers] =
+    useState<incorrectAnswerData[]>();
 
   const createQuizQuestions = async () => {
     try {
@@ -30,7 +31,9 @@ function MainPage() {
       const data = await res.json();
       data.results.forEach((item: Question) => {
         item.incorrect_answers.push(item.correct_answer);
-        item.combinedAnswers = item.incorrect_answers.slice().sort(() => Math.random() - 0.5);
+        item.combinedAnswers = item.incorrect_answers
+          .slice()
+          .sort(() => Math.random() - 0.5);
       });
       setQuestions(data.results);
       setError(null);
@@ -40,8 +43,13 @@ function MainPage() {
   };
 
   const navigateToResult = () => {
-    seeResult('/result',{state:{incorrectAnswer:idOfIncorrectAnswers,questions:questions && questions}});
-  }
+    seeResult("/result", {
+      state: {
+        incorrectAnswer: idOfIncorrectAnswers,
+        questions: questions && questions,
+      },
+    });
+  };
 
   return (
     <>
@@ -54,7 +62,7 @@ function MainPage() {
             error={error}
           />
         )}
-        {(questions && !error) && (
+        {questions && !error && (
           <QuizQustions
             quizQuestionData={questions}
             isTestComplete={setTestComplete}

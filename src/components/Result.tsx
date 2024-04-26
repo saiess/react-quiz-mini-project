@@ -57,9 +57,7 @@ const Result = () => {
           </Link>
         </>
       )}
-      {!quizResult.state?.questions && (
-      <span className="text-9xl">404</span>
-      )}
+      {!quizResult.state?.questions && <span className="text-9xl">404</span>}
     </div>
   );
 };

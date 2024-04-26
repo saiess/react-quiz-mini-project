@@ -10,10 +10,14 @@ interface SelectedAnswers {
   incorrect?: number | null;
 }
 
-const QuizQustions = ({ quizQuestionData, isTestComplete, incorrectAnswers }: QuestionProps) => {
-  const [saveCorrectAnswer, setSaveCorrectAnswer] = useState<
-  SelectedAnswers[]
-  >([]);
+const QuizQustions = ({
+  quizQuestionData,
+  isTestComplete,
+  incorrectAnswers,
+}: QuestionProps) => {
+  const [saveCorrectAnswer, setSaveCorrectAnswer] = useState<SelectedAnswers[]>(
+    []
+  );
 
   const handleCorrectAnswer = (
     id: number,
@@ -58,9 +62,10 @@ const QuizQustions = ({ quizQuestionData, isTestComplete, incorrectAnswers }: Qu
     stateOfSaveCorrectAnswer.length === 5 && isTestComplete(true);
     let arrOfIncorrect: incorrectAnswerData[] = [];
     stateOfSaveCorrectAnswer.filter((el: SelectedAnswers) => {
-      el.incorrect != null && arrOfIncorrect.push({incorrect: el.incorrect, rowId: el.rowId})
-    })
-    incorrectAnswers(arrOfIncorrect) 
+      el.incorrect != null &&
+        arrOfIncorrect.push({ incorrect: el.incorrect, rowId: el.rowId });
+    });
+    incorrectAnswers(arrOfIncorrect);
   };
 
   return (

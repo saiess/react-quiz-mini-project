@@ -1,4 +1,4 @@
 export interface QuizCreatedData {
-    categoryId: number;
-    difficulty: string;
+  categoryId: number;
+  difficulty: string;
 }

@@ -1,4 +1,4 @@
 export interface incorrectAnswerData {
-    incorrect: number;
-    rowId: number | null;
+  incorrect: number;
+  rowId: number | null;
 }
