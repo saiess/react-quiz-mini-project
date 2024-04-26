@@ -76,6 +76,7 @@ const QuizQustions = ({
           <div className="w-full flex flex-wrap gap-3">
             {item.combinedAnswers?.map((answer: string, j: number) => (
               <Button
+                status={saveCorrectAnswer.length === 5}
                 key={j}
                 style={`${
                   saveCorrectAnswer.find((el) => el?.rowId === i)?.correct === j
