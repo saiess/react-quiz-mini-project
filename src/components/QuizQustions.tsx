@@ -3,19 +3,14 @@ import { Question } from "../interfaces/question";
 import Button from "./Button";
 import { incorrectAnswerData } from "../interfaces/incorrectAnswerData";
 import { QuestionProps } from "../interfaces/selectedAnswers";
-
-interface SelectedAnswers {
-  rowId: null | number;
-  correct: null | number;
-  incorrect?: number | null;
-}
+import { answerClicked } from "../interfaces/answerClicked";
 
 const QuizQustions = ({
   quizQuestionData,
   isTestComplete,
   incorrectAnswers,
 }: QuestionProps) => {
-  const [saveCorrectAnswer, setSaveCorrectAnswer] = useState<SelectedAnswers[]>(
+  const [saveCorrectAnswer, setSaveCorrectAnswer] = useState<answerClicked[]>(
     []
   );
 
@@ -32,7 +27,7 @@ const QuizQustions = ({
 
     let stateOfSaveCorrectAnswer = [...saveCorrectAnswer];
 
-    // is this row selected before
+    // is this question aka row was selected before
     if (rowSelectedIndex !== -1) {
       isCorrect
         ? ((stateOfSaveCorrectAnswer[rowSelectedIndex].correct = btnId),
@@ -61,7 +56,7 @@ const QuizQustions = ({
     setSaveCorrectAnswer(stateOfSaveCorrectAnswer);
     stateOfSaveCorrectAnswer.length === 5 && isTestComplete(true);
     let arrOfIncorrect: incorrectAnswerData[] = [];
-    stateOfSaveCorrectAnswer.filter((el: SelectedAnswers) => {
+    stateOfSaveCorrectAnswer.filter((el: answerClicked) => {
       el.incorrect != null &&
         arrOfIncorrect.push({ incorrect: el.incorrect, rowId: el.rowId });
     });
@@ -78,8 +73,10 @@ const QuizQustions = ({
               <Button
                 key={j}
                 style={`${
-                  (saveCorrectAnswer.find((el) => el?.rowId === i)?.correct === j || saveCorrectAnswer.find((el) => el?.rowId === i)?.incorrect === j )
-                    && "bg-green-700"
+                  (saveCorrectAnswer.find((el) => el?.rowId === i)?.correct === j
+                     ||
+                    saveCorrectAnswer.find((el) => el?.rowId === i)?.incorrect === j) &&
+                  "bg-green-700"
                 }`}
                 text={answer}
                 onClick={() => handleCorrectAnswer(i, answer, j)}
