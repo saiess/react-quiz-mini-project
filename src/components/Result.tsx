@@ -19,7 +19,7 @@ const Result = () => {
                     {item.combinedAnswers?.map((answer: string, j: number) => (
                       <span
                         key={j}
-                        className={`px-3 py-2 mt-1 mb-1 rounded-lg + ${
+                        className={`px-3 py-2 mt-1 mb-1 rounded-lg border border-slate-700 ${
                           item.correct_answer === answer
                             ? "bg-green-700"
                             : quizResult.state.incorrectAnswer.find(

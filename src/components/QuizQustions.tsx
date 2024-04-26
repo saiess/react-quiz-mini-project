@@ -80,6 +80,7 @@ const QuizQustions = ({ quizQuestionData, isTestComplete, incorrectAnswers }: Qu
                 }`}
                 text={answer}
                 onClick={() => handleCorrectAnswer(i, answer, j)}
+                id={`${j}`}
               />
             ))}
           </div>

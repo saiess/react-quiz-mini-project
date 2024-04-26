@@ -76,6 +76,7 @@ const CreateQuiz = ({
           style={"border-cyan-600"}
           text={"Create"}
           onClick={fetchQuestions}
+          id={"createBtn"}
         />
       </section>
       {error && (

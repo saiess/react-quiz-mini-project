@@ -4,4 +4,5 @@ export interface ButtonProps{
         style: string;
         text: string;
         onClick: MouseEventHandler<HTMLButtonElement>;
+        id: string;
 }
