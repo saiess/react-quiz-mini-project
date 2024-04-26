@@ -76,13 +76,10 @@ const QuizQustions = ({
           <div className="w-full flex flex-wrap gap-3">
             {item.combinedAnswers?.map((answer: string, j: number) => (
               <Button
-                status={saveCorrectAnswer.length === 5}
                 key={j}
                 style={`${
-                  saveCorrectAnswer.find((el) => el?.rowId === i)?.correct === j
-                    ? "bg-green-700"
-                    : saveCorrectAnswer.find((el) => el?.rowId === i)
-                        ?.incorrect === j && "bg-red-500"
+                  (saveCorrectAnswer.find((el) => el?.rowId === i)?.correct === j || saveCorrectAnswer.find((el) => el?.rowId === i)?.incorrect === j )
+                    && "bg-green-700"
                 }`}
                 text={answer}
                 onClick={() => handleCorrectAnswer(i, answer, j)}

@@ -76,7 +76,6 @@ function MainPage() {
             text={"Submit"}
             onClick={navigateToResult}
             id="Submit"
-            status={false}
           />
         )}
         {error && <p className={"bg-cyan-600"} />}

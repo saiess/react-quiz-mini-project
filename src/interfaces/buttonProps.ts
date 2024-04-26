@@ -5,5 +5,4 @@ export interface ButtonProps {
   text: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
   id: string;
-  status: boolean;
 }

@@ -77,7 +77,6 @@ const CreateQuiz = ({
           text={"Create"}
           onClick={fetchQuestions}
           id={"createBtn"}
-          status={false}
         />
       </section>
       {error && (
